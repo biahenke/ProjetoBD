@@ -13,3 +13,6 @@ def consultar_vendas():
 
 def excluir_venda(venda_id):
     crud.excluir_dado("vendas", venda_id)
+
+def consultar_vendas_por_periodo(data_inicial, data_final):
+    return crud.consultar_vendas_por_periodo(data_inicial, data_final)

@@ -1,8 +1,7 @@
 from app.models import crud
 
-def cadastrar_cliente(id,nome, idade, email):
+def cadastrar_cliente(nome, idade, email):
     dados = {
-        "id":id,
         "nome": nome,
         "idade": idade,
         "email": email
