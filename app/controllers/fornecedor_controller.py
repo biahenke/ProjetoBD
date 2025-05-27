@@ -1,7 +1,7 @@
 from app.models import crud
 
-def cadastrar_fornecedor(id,nome, contato):
-    dados = {"id":id,"nome": nome, "contato": contato}
+def cadastrar_fornecedor(nome, contato):
+    dados = {"nome": nome, "contato": contato}
     crud.inserir_dado("fornecedores", dados)
 
 def consultar_fornecedores():

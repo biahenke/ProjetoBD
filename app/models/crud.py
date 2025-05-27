@@ -91,51 +91,6 @@ def criar_tabela_vendas():
     conn.commit()
     conn.close()
 
-def criar_ficha_medica(cliente_id, altura, peso, observacoes):
-    dados = {
-        "cliente_id": cliente_id,
-        "altura": altura,
-        "peso": peso,
-        "observacoes": observacoes
-    }
-    inserir_dado("fichas_medicas", dados)
-def criar_tabela_fichas_medicas():
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS fichas_medicas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            cliente_id INTEGER,
-            altura REAL,
-            peso REAL,
-            observacoes TEXT,
-            FOREIGN KEY (cliente_id) REFERENCES clientes(id)
-        )
-    ''')
-    conn.commit()
-    conn.close()
-def consultar_ficha_medica_por_cliente(cliente_id):
-    conn = conectar()
-    c = conn.cursor()
-    c.execute("SELECT * FROM fichas_medicas WHERE cliente_id = ?", (cliente_id,))
-    ficha = c.fetchone()
-    conn.close()
-    return ficha
-
-def criar_tabela_aulas():
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS aulas (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT,
-            horario TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-def criar_tabela_dependentes():
     conn = conectar()
     c = conn.cursor()
     c.execute('''
@@ -187,3 +142,13 @@ def consultar_pagamentos_por_cliente(cliente_id):
     return resultados
 
 
+def consultar_vendas_por_periodo(data_inicial, data_final):
+    conn = conectar()
+    c = conn.cursor()
+    c.execute('''
+        SELECT * FROM vendas
+        WHERE DATE(data) BETWEEN DATE(?) AND DATE(?)
+    ''', (data_inicial, data_final))
+    resultados = c.fetchall()
+    conn.close()
+    return resultados
